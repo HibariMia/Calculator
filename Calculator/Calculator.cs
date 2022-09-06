@@ -12,6 +12,8 @@ namespace Calculator
 {
     public partial class Calculator : Form
     {
+        float a,b;
+        int operation = 0;
         bool sign = true;
 
         public Calculator()
@@ -23,6 +25,19 @@ namespace Calculator
         {
             string number = ((Button)sender).Text;
             textBox1.Text += number;
+        }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = "";
+            label1.Text = "";
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            a = float.Parse(textBox1.Text);
+            label1.Text = a.ToString() + '+';              
+            sign = true;
         }
 
         private void button19_Click(object sender, EventArgs e)
