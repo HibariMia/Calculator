@@ -69,6 +69,7 @@
             this.button18.TabIndex = 36;
             this.button18.Text = "AC";
             this.button18.UseVisualStyleBackColor = true;
+            this.button18.Click += new System.EventHandler(this.clearInputs);
             // 
             // button17
             // 
@@ -78,6 +79,7 @@
             this.button17.TabIndex = 35;
             this.button17.Text = "BACK";
             this.button17.UseVisualStyleBackColor = true;
+            this.button17.Click += new System.EventHandler(this.button17_Click);
             // 
             // button16
             // 
@@ -87,6 +89,7 @@
             this.button16.TabIndex = 34;
             this.button16.Text = "/";
             this.button16.UseVisualStyleBackColor = true;
+            this.button16.Click += new System.EventHandler(this.button16_Click);
             // 
             // button15
             // 
@@ -96,6 +99,7 @@
             this.button15.TabIndex = 33;
             this.button15.Text = "*";
             this.button15.UseVisualStyleBackColor = true;
+            this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
             // button14
             // 
@@ -175,6 +179,7 @@
             this.button7.TabIndex = 25;
             this.button7.Text = "–";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button6
             // 
@@ -215,6 +220,7 @@
             this.button3.TabIndex = 21;
             this.button3.Text = "=";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
