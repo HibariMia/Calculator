@@ -1,6 +1,6 @@
 ﻿namespace Calculator
 {
-    partial class Calculator
+    partial class Calc
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -266,7 +266,7 @@
             this.label1.Size = new System.Drawing.Size(0, 17);
             this.label1.TabIndex = 39;
             // 
-            // Calculator
+            // Calc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -293,7 +293,7 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Name = "Calculator";
+            this.Name = "Calc";
             this.Text = "Калькулятор";
             this.ResumeLayout(false);
             this.PerformLayout();

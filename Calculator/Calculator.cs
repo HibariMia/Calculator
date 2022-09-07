@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Calculator
 {
-    public partial class Calculator : Form
+    public partial class Calc : Form
     {
         float a,b;
         int operation = 0;
@@ -20,12 +20,12 @@ namespace Calculator
         int lastOparaion; //1 - число, 2 - знак операции
         string r;
 
-        public Calculator()
+        public Calc()
         {
             InitializeComponent();
         }
 
-        private void numberBtn_Click(object sender, EventArgs e)
+        public void numberBtn_Click(object sender, EventArgs e)
         {
             string number = ((Button)sender).Text;         
             if (reload || lastOparaion == 2)
@@ -40,7 +40,7 @@ namespace Calculator
             lastOparaion = 1;
         }
 
-        private void clearInputs(object sender, EventArgs e)
+        public void clearInputs(object sender, EventArgs e)
         {
             textBox1.Text = "";
             label1.Text = "";
@@ -54,11 +54,13 @@ namespace Calculator
             {
                 textBox1.Text = "-" + textBox1.Text;
                 sign = false;
+                if (!reload && lastOparaion != 2) r = "-" + r;
             }
             else
             {
                 textBox1.Text = textBox1.Text.Replace("-", "");
                 sign = true;
+                if (!reload && lastOparaion != 2) r.Replace("-", "");
             }
         }
         private void button11_Click(object sender, EventArgs e)
@@ -145,34 +147,57 @@ namespace Calculator
             oldOperation = "";
         }
 
-        private void oparetionAction()
+        public float divideAction(float a1, float a2)
+        {
+            float rs = a1 / a2;
+            return rs;
+        }
+
+        public float multiplyAction(float a1, float a2)
+        {
+            float rs = a1 * a2;
+            return rs;
+        }
+
+        public float addAction(float a1, float a2)
+        {
+            float rs = a1 + a2;
+            return rs;
+        }
+
+        public float subtractionAction(float a1, float a2) { 
+            float rs = a1 - a2;
+            return rs;
+        }
+
+        public void oparetionAction()
         {
 
             switch (operation)
             {
-                case 1:
-                    b = float.Parse(r) + a;
+                case 1:                   
+                    b = addAction(float.Parse(r), a);
                     r = b.ToString();
                     textBox1.Text = b.ToString();
                     operation = 0;
                     reload = true;                 
                     break;
-                case 2:
-                    b = float.Parse(r) - a;
+                case 2:                    
+                    b = subtractionAction(float.Parse(r), a);
                     r = b.ToString();
                     textBox1.Text = b.ToString();
                     operation = 0;
                     reload = true;                    
                     break;
-                case 3:
-                    b = float.Parse(r) * a;
+                case 3:                   
+                    b = multiplyAction(float.Parse(r), a);
                     r = b.ToString();
                     textBox1.Text = b.ToString();
                     operation = 0;
                     reload = true;                   
                     break;
-                case 4:
-                    b = float.Parse(r) / a;
+                case 4:                  
+                    b = divideAction(float.Parse(r), a);
                     r = b.ToString();
                     textBox1.Text = b.ToString();
                     operation = 0;
