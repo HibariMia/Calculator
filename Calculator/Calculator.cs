@@ -12,14 +12,11 @@ namespace Calculator
 {
     public partial class Calc : Form
     {
-        float a,b;
-        int operation = 0;
-        string oldOperation;
-        bool sign = true;
-        bool reload = false;
-        bool action = false;
-        int lastOparaion; //1 - число, 2 - знак операции
+        float a,b;     
+        string lastOperation = "=";        
+        bool sign = true;       
         string r, bs;
+        string operand = "";
 
         public Calc()
         {
@@ -29,33 +26,20 @@ namespace Calculator
         public void numberBtn_Click(object sender, EventArgs e)
         {
             string number = ((Button)sender).Text;
-            if (reload)
+            if (lastOperation != "=") textBox1.Text = "";
+            textBox1.Text += number;
+            if (lastOperation == "=" && operand != "")
             {
-                textBox1.Text = number;                
-                reload = false;
-            } else if (lastOparaion == 2) 
-            {
-                textBox1.Text = number;
-                reload = false;
-                action = true;
-            } else if (action) {
-                textBox1.Text += number;
-                reload = false;
-                action = true;
-            } else
-            {
-                textBox1.Text += number;
-                r += number;                
-            }
-            lastOparaion = 1;
+                operand = "";
+            }     
         }
 
         public void clearInputs(object sender, EventArgs e)
         {
             textBox1.Text = "";
-            label1.Text = "";
-            r = "";
-            oldOperation = "";
+            label1.Text = "";   
+            lastOperation = "=";    
+            operand = "";
         }
 
         private void button19_Click(object sender, EventArgs e)
@@ -79,94 +63,51 @@ namespace Calculator
                 sign = true;
                 r = r.Replace("-", "");
             }
+            Console.WriteLine(r);
         }
         private void button11_Click(object sender, EventArgs e)
-        {
-            if (lastOparaion != 2 || action)
-            {
-                oldOperation += textBox1.Text + '+';
-                a = float.Parse(textBox1.Text);               
-                sign = true;
-                oparetionAction();                 
-                action = false; 
-            } else
-            {
-                oldOperation = oldOperation.Remove(oldOperation.Length - 1) + '+';
-            }
-            label1.Text = oldOperation;
-            lastOparaion = 2;
-            operation = 1;
+        {            
+            a = float.Parse(textBox1.Text);            
+            oparetionAction(a, lastOperation, "+");
+            lastOperation = "+";
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
-            if (lastOparaion != 2)
-            {
-                oldOperation += textBox1.Text + '-';
-                a = float.Parse(textBox1.Text);              
-                sign = true;
-                oparetionAction();
-                action = false;
-            }
-            else
-            {
-                oldOperation = oldOperation.Remove(oldOperation.Length - 1) + '-';
-            }
-            label1.Text = oldOperation;
-            lastOparaion = 2;
-            operation = 2;
+            a = float.Parse(textBox1.Text);
+            oparetionAction(a, lastOperation, "-");            
+            lastOperation = "-";                       
         }
 
         private void button16_Click(object sender, EventArgs e)
         {
-            if (lastOparaion != 2)
-            {
-                oldOperation += textBox1.Text + '/';
-                a = float.Parse(textBox1.Text);               
-                sign = true;
-                oparetionAction();
-                action = false;
-            }
-            else
-            {
-                oldOperation = oldOperation.Remove(oldOperation.Length - 1) + '/';
-            }
-            label1.Text = oldOperation;
-            operation = 4;
-            lastOparaion = 2;
+            a = float.Parse(textBox1.Text);
+            oparetionAction(a, lastOperation, "/");            
+            lastOperation = "/";                     
         }
 
         private void button15_Click(object sender, EventArgs e)
         {
-            if (lastOparaion != 2)
-            {
-                oldOperation += textBox1.Text + '*';
-                a = float.Parse(textBox1.Text);                
-                sign = true;
-                oparetionAction();
-                action = false;
-            }
-            else
-            {
-                oldOperation = oldOperation.Remove(oldOperation.Length - 1) + '*';
-            }
-            label1.Text = oldOperation;
-            operation = 3;
-            lastOparaion = 2;
+            a = float.Parse(textBox1.Text);
+            oparetionAction(a, lastOperation, "*");          
+            lastOperation = "*";                   
         }
 
         private void button17_Click(object sender, EventArgs e)
         {
-            textBox1.Text = textBox1.Text.Remove(textBox1.Text.Length - 1);
-            r = r.Remove(0, 1);
+            if (textBox1.Text.Length > 0)
+            {
+                textBox1.Text = textBox1.Text.Remove(textBox1.Text.Length - 1);
+                r = r.Remove(0, 1);
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             a = float.Parse(textBox1.Text);
-            oparetionAction();
+            oparetionAction(a, lastOperation, "");
             label1.Text = "";
-            oldOperation = "";
+            lastOperation = "=";
         }
 
         public string divideAction(float a1, float a2)
@@ -201,51 +142,43 @@ namespace Calculator
             return rs;
         }
 
-        public void oparetionAction()
-        {
-
-            switch (operation)
-            {
-                case 1:                   
-                    b = addAction(float.Parse(r), a);
-                    Console.WriteLine(r);
-                    Console.WriteLine(a);
-                    r = b.ToString();
-                    textBox1.Text = b.ToString();
-                    operation = 0;
-                    reload = true;                   
-                    break;
-                case 2:                    
-                    b = subtractionAction(float.Parse(r), a);
-                    Console.WriteLine(r);
-                    Console.WriteLine(a);
-                    r = b.ToString();
-                    textBox1.Text = b.ToString();
-                    operation = 0;
-                    reload = true;                    
-                    break;
-                case 3:                   
-                    b = multiplyAction(float.Parse(r), a);
-                    Console.WriteLine(r);
-                    Console.WriteLine(a);
-                    r = b.ToString();
-                    textBox1.Text = b.ToString();
-                    operation = 0;
-                    reload = true;                   
-                    break;
-                case 4:
-                    bs = divideAction(float.Parse(r), a);
-                    Console.WriteLine(r);
-                    Console.WriteLine(a);
-                    b = float.Parse(bs.ToString());
-                    r = b.ToString();
-                    textBox1.Text = b.ToString();
-                    operation = 0;
-                    reload = true;                   
-                    break;
-                default:
-                    break;
+        public void oparetionAction(float n, string operation, string operationNew)
+        {           
+            if (operand == "")
+            {               
+                operand = n.ToString();
+                b = n;               
             }
+            else
+            {
+                if (lastOperation == "=")
+                {
+                    lastOperation = operation;                    
+                }              
+                switch (lastOperation)
+                {
+                    case "+":
+                        b = addAction(float.Parse(operand), n);
+                        textBox1.Text = b.ToString();
+                        break;
+                    case "-":
+                        b = subtractionAction(float.Parse(operand), n);
+                        textBox1.Text = b.ToString();
+                        break;
+                    case "*":
+                        b = multiplyAction(float.Parse(operand), n);
+                        textBox1.Text = b.ToString();
+                        break;
+                    case "/":
+                        bs = divideAction(float.Parse(operand), n);
+                        textBox1.Text = bs;
+                        break;
+                    default:
+                        break;
+                }                     
+                operand = b.ToString();
+            }
+            label1.Text = b.ToString() + operationNew;           
         }
     }
 }
