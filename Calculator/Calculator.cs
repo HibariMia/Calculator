@@ -12,11 +12,11 @@ namespace Calculator
 {
     public partial class Calc : Form
     {
-        float a,b;     
+        float a;     
         string lastOperation = "=";        
-        bool sign = true;       
-        string r, bs;
+        bool sign = true;    
         string operand = "";
+        int lp = 0;
 
         public Calc()
         {
@@ -28,6 +28,7 @@ namespace Calculator
             string number = ((Button)sender).Text;
             if (lastOperation != "=") textBox1.Text = "";
             textBox1.Text += number;
+            lp = 1;
             if (lastOperation == "=" && operand != "")
             {
                 operand = "";
@@ -40,6 +41,7 @@ namespace Calculator
             label1.Text = "";   
             lastOperation = "=";    
             operand = "";
+            lp = 0;
         }
 
         private void button19_Click(object sender, EventArgs e)
@@ -47,50 +49,71 @@ namespace Calculator
             if (sign)
             {
                 textBox1.Text = "-" + textBox1.Text;
-                sign = false;
-                if (r.Length == 0)
-                {
-                    r = "-" + r;
-                }
-                else if (r[0] != '-')
-                {
-                    r = "-" + r;
-                }
+                sign = false;               
             }
             else
             {
                 textBox1.Text = textBox1.Text.Replace("-", "");
-                sign = true;
-                r = r.Replace("-", "");
-            }
-            Console.WriteLine(r);
+                sign = true;                
+            }          
         }
         private void button11_Click(object sender, EventArgs e)
-        {            
-            a = float.Parse(textBox1.Text);            
-            oparetionAction(a, lastOperation, "+");
-            lastOperation = "+";
+        {
+            if (lp == 2)
+            {
+                if (label1.Text.Length > 0) label1.Text = label1.Text.Remove(label1.Text.Length - 1) + "+";
+            } else if (textBox1.Text.Length > 0)
+            {
+                a = float.Parse(textBox1.Text);
+                oparetionAction(a, lastOperation, "+");
+            }
+            lastOperation = "+";           
+            lp = 2;
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
-            a = float.Parse(textBox1.Text);
-            oparetionAction(a, lastOperation, "-");            
-            lastOperation = "-";                       
+            if (lp == 2)
+            {
+                if (label1.Text.Length > 0) label1.Text = label1.Text.Remove(label1.Text.Length - 1) + "+";
+            } else if (textBox1.Text.Length > 0)
+            {
+                a = float.Parse(textBox1.Text);
+                oparetionAction(a, lastOperation, "-");
+            }
+            lastOperation = "-";
+            label1.Text = label1.Text.Remove(label1.Text.Length - 1) + "-";
+            lp = 2;
         }
 
         private void button16_Click(object sender, EventArgs e)
         {
-            a = float.Parse(textBox1.Text);
-            oparetionAction(a, lastOperation, "/");            
-            lastOperation = "/";                     
+            if (lp == 2)
+            {
+                if (label1.Text.Length > 0) label1.Text = label1.Text.Remove(label1.Text.Length - 1) + "+";
+            } else if (textBox1.Text.Length > 0)
+            {
+                a = float.Parse(textBox1.Text);
+                oparetionAction(a, lastOperation, "/");
+            }
+            lastOperation = "/";
+            label1.Text = label1.Text.Remove(label1.Text.Length - 1) + "/";
+            lp = 2;
         }
 
         private void button15_Click(object sender, EventArgs e)
         {
-            a = float.Parse(textBox1.Text);
-            oparetionAction(a, lastOperation, "*");          
-            lastOperation = "*";                   
+            if (lp == 2)
+            {
+                if (label1.Text.Length > 0) label1.Text = label1.Text.Remove(label1.Text.Length - 1) + "+";
+            } else if (textBox1.Text.Length > 0)
+            {
+                a = float.Parse(textBox1.Text);
+                oparetionAction(a, lastOperation, "*");
+            }
+            lastOperation = "*";  
+            label1.Text = label1.Text.Remove(label1.Text.Length - 1) + "*";
+            lp = 2;
         }
 
         private void button17_Click(object sender, EventArgs e)
@@ -98,7 +121,6 @@ namespace Calculator
             if (textBox1.Text.Length > 0)
             {
                 textBox1.Text = textBox1.Text.Remove(textBox1.Text.Length - 1);
-                r = r.Remove(0, 1);
             }
         }
 
@@ -147,7 +169,7 @@ namespace Calculator
             if (operand == "")
             {               
                 operand = n.ToString();
-                b = n;               
+                label1.Text = n.ToString() + operationNew;
             }
             else
             {
@@ -157,28 +179,30 @@ namespace Calculator
                 }              
                 switch (lastOperation)
                 {
+                    case "=":
+                        operand = n.ToString();
+                        break;
                     case "+":
-                        b = addAction(float.Parse(operand), n);
-                        textBox1.Text = b.ToString();
+                        operand = addAction(float.Parse(operand), n).ToString();
+                        textBox1.Text = operand;
                         break;
                     case "-":
-                        b = subtractionAction(float.Parse(operand), n);
-                        textBox1.Text = b.ToString();
+                        operand = subtractionAction(float.Parse(operand), n).ToString();
+                        textBox1.Text = operand;
                         break;
                     case "*":
-                        b = multiplyAction(float.Parse(operand), n);
-                        textBox1.Text = b.ToString();
+                        operand = multiplyAction(float.Parse(operand), n).ToString();
+                        textBox1.Text = operand;
                         break;
                     case "/":
-                        bs = divideAction(float.Parse(operand), n);
-                        textBox1.Text = bs;
+                        operand = divideAction(float.Parse(operand), n);
+                        textBox1.Text = operand;
                         break;
                     default:
                         break;
-                }                     
-                operand = b.ToString();
-            }
-            label1.Text = b.ToString() + operationNew;           
+                }                  
+                label1.Text = operand + operationNew;
+            }                     
         }
     }
 }
