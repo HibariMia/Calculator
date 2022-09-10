@@ -18,7 +18,7 @@ namespace CalculatorTestOne
             float res = c.addAction(arg1,arg2);
             Assert.AreEqual(exp, res);
         }
-
+        [TestMethod]
         public void bigNumbersDiv()
         {
             Calc c = new Calc();
@@ -29,7 +29,7 @@ namespace CalculatorTestOne
             string res = c.divideAction(arg1,arg2);
             Assert.AreEqual(exp, res);
         }
-
+        [TestMethod]
         public void bigNumbersSub()
         {
             Calc c = new Calc();
@@ -40,7 +40,7 @@ namespace CalculatorTestOne
             float res = c.subtractionAction(arg1, arg2);
             Assert.AreEqual(exp, res);
         }
-
+        [TestMethod]
         public void bigNumbersMultiply()
         {
             Calc c = new Calc();

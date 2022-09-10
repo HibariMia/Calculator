@@ -301,10 +301,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button18;
-        private System.Windows.Forms.Button button17;
         private System.Windows.Forms.Button button16;
         private System.Windows.Forms.Button button15;
         private System.Windows.Forms.Button button14;
@@ -318,11 +314,14 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button19;
-        private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.Label label1;
+        public System.Windows.Forms.Button button18;
+        public System.Windows.Forms.Button button17;
+        public System.Windows.Forms.TextBox textBox1;
+        public System.Windows.Forms.Button button3;
     }
 }
 

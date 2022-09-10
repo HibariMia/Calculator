@@ -12,10 +12,10 @@ namespace Calculator
 {
     public partial class Calc : Form
     {
-        float a;     
-        string lastOperation = "=";        
+        public float a;
+        public string lastOperation = "=";        
         bool sign = true;    
-        string operand = "";
+        public string operand = "";
         int lp = 0;
 
         public Calc()
@@ -116,7 +116,7 @@ namespace Calculator
             lp = 2;
         }
 
-        private void button17_Click(object sender, EventArgs e)
+        public void button17_Click(object sender, EventArgs e)
         {
             if (textBox1.Text.Length > 0)
             {
@@ -124,7 +124,7 @@ namespace Calculator
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        public void button3_Click(object sender, EventArgs e)
         {
             a = float.Parse(textBox1.Text);
             operationAction(a, lastOperation, "");
@@ -156,7 +156,7 @@ namespace Calculator
         public float addAction(float a1, float a2)
         {
             float rs = a1 + a2;
-            return rs;
+            return rs;   
         }
 
         public float subtractionAction(float a1, float a2) { 
