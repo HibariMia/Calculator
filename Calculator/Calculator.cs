@@ -26,7 +26,7 @@ namespace Calculator
         public void numberBtn_Click(object sender, EventArgs e)
         {
             string number = ((Button)sender).Text;
-            if (lastOperation != "=") textBox1.Text = "";
+            if (lp == 2) textBox1.Text = "";
             textBox1.Text += number;
             lp = 1;
             if (lastOperation == "=" && operand != "")
@@ -65,7 +65,7 @@ namespace Calculator
             } else if (textBox1.Text.Length > 0)
             {
                 a = float.Parse(textBox1.Text);
-                oparetionAction(a, lastOperation, "+");
+                operationAction(a, lastOperation, "+");
             }
             lastOperation = "+";           
             lp = 2;
@@ -79,7 +79,7 @@ namespace Calculator
             } else if (textBox1.Text.Length > 0)
             {
                 a = float.Parse(textBox1.Text);
-                oparetionAction(a, lastOperation, "-");
+                operationAction(a, lastOperation, "-");
             }
             lastOperation = "-";
             label1.Text = label1.Text.Remove(label1.Text.Length - 1) + "-";
@@ -94,7 +94,7 @@ namespace Calculator
             } else if (textBox1.Text.Length > 0)
             {
                 a = float.Parse(textBox1.Text);
-                oparetionAction(a, lastOperation, "/");
+                operationAction(a, lastOperation, "/");
             }
             lastOperation = "/";
             label1.Text = label1.Text.Remove(label1.Text.Length - 1) + "/";
@@ -109,7 +109,7 @@ namespace Calculator
             } else if (textBox1.Text.Length > 0)
             {
                 a = float.Parse(textBox1.Text);
-                oparetionAction(a, lastOperation, "*");
+                operationAction(a, lastOperation, "*");
             }
             lastOperation = "*";  
             label1.Text = label1.Text.Remove(label1.Text.Length - 1) + "*";
@@ -127,7 +127,7 @@ namespace Calculator
         private void button3_Click(object sender, EventArgs e)
         {
             a = float.Parse(textBox1.Text);
-            oparetionAction(a, lastOperation, "");
+            operationAction(a, lastOperation, "");
             label1.Text = "";
             lastOperation = "=";
         }
@@ -164,7 +164,7 @@ namespace Calculator
             return rs;
         }
 
-        public void oparetionAction(float n, string operation, string operationNew)
+        public void operationAction(float n, string operation, string operationNew)
         {           
             if (operand == "")
             {               
